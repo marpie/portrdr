@@ -1,0 +1,14 @@
+[
+	{
+		"info": "Redirect to www.google.de",
+		"protocol": "tcp",
+		"localAddr": "127.0.0.1:8080",
+		"remoteAddr": "www.google.de:80"
+	},
+	{
+		"info": "Redirect to www.test.de",
+		"protocol": "tcp",
+		"localAddr": "127.0.0.1:8090",
+		"remoteAddr": "www.test.de:80"
+	}
+]
