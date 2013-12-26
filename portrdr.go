@@ -19,6 +19,7 @@ func main() {
 			errCounter++
 		}
 	}
+
 	// Check if any listeners are active
 	if errCounter == len(*config) {
 		ErrorExit(ERR_NO_REDIRECTIONS)

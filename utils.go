@@ -8,7 +8,7 @@ import (
 )
 
 func ErrorOut(err error) {
-	fmt.Fprintf(os.Stderr, "[E] %v", err)
+	fmt.Fprintf(os.Stderr, "[E] %v\n", err)
 }
 
 func ErrorExit(err error) {

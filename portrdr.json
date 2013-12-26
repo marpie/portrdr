@@ -10,5 +10,28 @@
 		"protocol": "tcp",
 		"localAddr": "127.0.0.1:8090",
 		"remoteAddr": "www.test.de:80"
+	},
+	{
+		"info": "TLS Redirect to service1.example.com / service2.example.com",
+		"protocol": "tls2tls",
+		"localAddr": "127.0.0.1:8443",
+		"sslSkipVerify": true,
+		"appProtos": [
+			"http/1.1"
+		],
+		"remoteAddrs": [
+			{"certId": "service1.example.com", "remoteAddr": "service1.example.com:888"},
+			{"certId": "service2.example.com", "remoteAddr": "service2.example.com:888"}
+		],
+		"certs": {
+			"service1.example.com": {
+				"certFile": "certs/service1.example.com.crt",
+				"keyFile": "certs/service1.example.com.key"
+			},
+			"service2.example.com": {
+				"certFile": "certs/service2.example.com.crt",
+				"keyFile": "certs/service2.example.com.key"
+			}
+		}
 	}
 ]
