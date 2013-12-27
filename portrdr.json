@@ -1,14 +1,88 @@
-[
-	{
-		"info": "Redirect to www.google.de",
-		"protocol": "tcp",
-		"localAddr": "127.0.0.1:8080",
-		"remoteAddr": "www.google.de:80"
+{
+	"httpPort": 8080,
+	"httpsPort": 8443,
+	"skipSSLVerification": false,
+
+	"certificates": {
+		"owncloud.int": {
+			"certFile": "certs/owncloud.int.crt",
+			"keyFile": "certs/owncloud.int.key"
+		},
+		"splunk.int": {
+			"certFile": "certs/splunk.int.crt",
+			"keyFile": "certs/splunk.int.key"
+		},
+		"google.com": {
+			"certFile": "certs/google.com.crt",
+			"keyFile": "certs/google.com.key"
+		}
 	},
-	{
-		"info": "Redirect to www.test.de",
-		"protocol": "tcp",
-		"localAddr": "127.0.0.1:8090",
-		"remoteAddr": "www.test.de:80"
+
+	"tcp2tcp": {
+		"Google Redirect": {
+			"localAddr": ":8090",
+			"remoteAddr": "www.google.com:80"
+		}
+	},
+
+	"tcp2udp": {
+
+	},
+
+	"udp2udp": {
+
+	},
+
+	"udp2tcp": {
+
+	},
+
+	"http": {
+		"Google": {
+			"host": "",
+			"path": "/google",
+			"remoteURL": "http://www.google.com"
+		},
+		"Google-HTTPS": {
+			"host": "",
+			"path": "/google",
+			"remoteURL": "http://www.google.com",
+			"cert": "google.com"
+		},
+		"OwnCloud": {
+			"host": "owncloud.int",
+			"path": "/",
+			"remoteURL": "http://owncloud/",
+			"cert": "owncloud.int"
+		},
+		"Splunk": {
+			"host": "splunk.int",
+			"path": "/splunk",
+			"remoteURL": "http://spunk/",
+			"cert": "splunk.int"
+		}
+	},
+
+	"tls2tls": {
+		"TLS Redirect to service1.example.com / service2.example.com": {
+			"localAddr": "127.0.0.1:8443",
+			"appProtos": [
+					"gimmy/1.1"
+			],
+			"remoteAddrs": [
+				{"certId": "service1.example.com", "remoteAddr": "service1.example.com:888"},
+				{"certId": "service2.example.com", "remoteAddr": "service2.example.com:888"}
+			],
+			"certs": {
+				"service1.example.com": {
+					"certFile": "certs/service1.example.com.crt",
+					"keyFile": "certs/service1.example.com.key"
+				},
+				"service2.example.com": {
+					"certFile": "certs/service2.example.com.crt",
+					"keyFile": "certs/service2.example.com.key"
+				}
+			}
+		}
 	}
-]
+}

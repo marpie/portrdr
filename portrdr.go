@@ -11,16 +11,46 @@ func main() {
 		ErrorExit(err)
 	}
 
-	// Setup redirects
 	errCounter := 0
-	for _, rdr := range *config {
-		if err := SetupRedirect(rdr); err != nil {
+
+	// Setup TCP to TCP redirects
+	for key, rdr := range config.Tcp2Tcp {
+		fmt.Printf("[*] %s\n", key)
+		if err := rdr.SetupRedirect(); err != nil {
 			ErrorOut(err)
-			errCounter++
+			errCounter += 1
 		}
 	}
+
+	// Setup TCP to UDP redirects
+	for key, rdr := range config.Tcp2Udp {
+		fmt.Printf("[*] %s\n", key)
+		if err := rdr.SetupRedirect(); err != nil {
+			ErrorOut(err)
+			errCounter += 1
+		}
+	}
+
+	// Setup UDP to UDP redirects
+	for key, rdr := range config.Udp2Udp {
+		fmt.Printf("[*] %s\n", key)
+		if err := rdr.SetupRedirect(); err != nil {
+			ErrorOut(err)
+			errCounter += 1
+		}
+	}
+
+	// Setup UDP to TCP redirects
+	for key, rdr := range config.Udp2Tcp {
+		fmt.Printf("[*] %s\n", key)
+		if err := rdr.SetupRedirect(); err != nil {
+			ErrorOut(err)
+			errCounter += 1
+		}
+	}
+
 	// Check if any listeners are active
-	if errCounter == len(*config) {
+	if errCounter == config.Count() {
 		ErrorExit(ERR_NO_REDIRECTIONS)
 	}
 
